@@ -1,0 +1,74 @@
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>步数定时提交</title>
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <h1>步数定时提交（北京时间）</h1>
+    <div class="row">
+      <div class="card">
+        <h2>统计</h2>
+        <div class="stats">
+          <div>账号总数：<b id="stat-total-accounts">-</b></div>
+          <div>启用账号：<b id="stat-enabled-accounts">-</b></div>
+          <div>今日成功：<b id="stat-today-success">-</b></div>
+          <div>今日失败：<b id="stat-today-failed">-</b></div>
+          <div>北京时间：<b id="beijing-time">-</b></div>
+        </div>
+        <button class="btn" onclick="executeAllAccounts()">立即执行所有启用账号</button>
+      </div>
+
+      <div class="card">
+        <h2>添加 / 编辑账号</h2>
+        <div class="form">
+          <input type="hidden" id="edit-account-id"/>
+          <label>账号</label>
+          <input id="modal-account" placeholder="邮箱/账号"/>
+          <label>密码</label>
+          <input id="modal-password" placeholder="密码" />
+          <label>默认步数</label>
+          <input id="modal-steps" type="number" value="89888"/>
+          <label>每天提交时间（北京时间）</label>
+          <div class="time">
+            <input id="modal-hour" type="number" min="0" max="23" value="0"/> :
+            <input id="modal-minute" type="number" min="0" max="59" value="5"/>
+          </div>
+          <div class="actions">
+            <button class="btn" onclick="saveAccount()">保存</button>
+            <button class="btn secondary" onclick="resetForm()">清空</button>
+          </div>
+          <div class="hint">提示：Render 请使用 1 个 worker，否则会重复定时执行。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="card full">
+        <h2>账号列表</h2>
+        <div id="accounts-list" class="list"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="card full">
+        <h2>今日提交记录</h2>
+        <table class="table">
+          <thead>
+            <tr><th>账号</th><th>步数</th><th>状态</th><th>信息</th><th>时间</th></tr>
+          </thead>
+          <tbody id="records-list"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
